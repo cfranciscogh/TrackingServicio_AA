@@ -1,0 +1,89 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>OnTrack Meridian</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" type="text/css" href="css/themes/default/jquery.mobile.theme-1.4.5.min.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/funciones.js"></script>
+    <script src="js/login.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        //navigator.splashscreen.hide();
+		var flag = window.localStorage.getItem("recordar");
+		 if (flag!=null){
+			 if ( flag == 1 ){
+				 page == "ordenes.html"
+			 	/*page = window.localStorage.getItem("page");
+			 	if (  page == "consulta.html" )
+			 		page = page + "?ruc=" + window.localStorage.getItem("ruc");*/
+				
+				location.href = page;	
+			 }
+		 }
+    }
+
+    </script>
+</head>
+
+<body >
+
+
+<div data-role="page" class="fondo">
+
+	<div data-role="header" data-position="fixed" data-theme="a">
+		<h1>APP - AUXILIARES</h1>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+        
+        
+        <div class="ui-body ui-body-a ui-corner-all">
+ 
+            <p style="text-align:center;">
+            <img src="img/transporte_meridian.png" />
+            </p>
+            
+            <form>
+            
+            <label for="usuario">Usuario:</label>
+    		<!--<input type="text" name="usuario" id="usuario" value=""  />-->
+			<select name="usuario" id="usuario" data-native-menu="false">
+            
+            <label for="clave">Contrase&ntilde;a:</label>
+    		<input type="password" name="clave" id="clave" value=""  />
+    
+    
+    		 <label for="recordar">Recordar</label>
+    		<input type="checkbox" name="recordar" id="recordar"   />
+            </form>
+		</div>
+        
+        
+	</div><!-- /content -->
+
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar" data-iconpos="top">
+		<ul>
+			<li><a id="ingresar"  data-icon="arrow-r">Ingresar</a></li>
+			<li><a onClick="exitFromApp();" data-icon="back">Cerrar</a></li>
+			 
+		</ul>
+	</div><!-- /navbar -->
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+
+</body>
+</html>

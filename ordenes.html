@@ -1,0 +1,73 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>OnTrack Meridian</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" type="text/css" href="css/themes/default/jquery.mobile.theme-1.4.5.min.css">
+     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/funciones.js"></script>
+    <script src="js/consulta.js"></script>
+    
+    <style type="text/css">
+	#myPopup {
+		overflow:hidden;
+	}
+	</style>
+</head>
+
+<body >
+
+
+<div data-role="page" class="fondo">
+
+	<div data-role="header" data-position="fixed" data-theme="a">
+		<h1 id="tituloEmpresa">Antares Aduanas</h1>
+	</div><!-- /header -->
+
+	<div id="contentProgramaciones" role="main" class="ui-content">
+    
+    <label for="incidencia">Ordenes Pendiente:</label>
+    <select name="ordenes" id="ordenes" data-native-menu="false"></select>
+    
+    <label for="concluido">Concluido:</label>
+    <select name="concluido" id="concluido" data-native-menu="false">
+    	<option value="">Seleccionar</option>
+        <option value="0">NO</option>
+        <option value="1">SI</option>
+    </select>
+    
+    <label for="observacion">Observación:</label>
+    <textarea rows="4" name="observacion" id="observacion"></textarea>
+    
+        	 
+        
+    
+    
+  
+      
+         
+        
+	</div><!-- /content -->
+
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar" data-iconpos="top">
+		<ul>
+			
+            <li><a id="guardar" data-position-to="window" data-icon="check">Guardar</a></li>
+            <li><a id="actualizar" data-icon="refresh">Actualizar</a></li>
+            <!--<li><a id="liberar" data-icon="delete">Liberar</a></li>-->
+            
+            <li><a onClick="sesionFromApp();" data-ajax="false" data-icon="delete">Salir</a></li>          	
+            
+			<!--	-->		 
+		</ul>
+	</div><!-- /navbar -->
+	</div><!-- /footer -->
+</div><!-- /page -->
+
+
+</body>
+</html>
