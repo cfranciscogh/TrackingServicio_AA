@@ -19,7 +19,7 @@
         following tag to your config.xml; you will still have the INTERNET
         permission on your app, which PhoneGap requires.
     -->
-    <preference name="permissions"                value="none"/>
+ <preference name="permissions"                value="none"/>
 
     <!-- Customize your app and platform with the preference element. -->
     <preference name="orientation"                value="default" />        <!-- all: default means both landscape and portrait are enabled -->
@@ -38,14 +38,16 @@
     <preference name="android-installLocation"    value="auto" />           <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
 	<preference name="SplashScreen" value="screen" />
 	<preference name="SplashScreenDelay" value="10000" />
-	<preference name="phonegap-version"       value="3.7.0" />
+	<!--<preference name="phonegap-version"       value="3.7.0" />-->
+	<preference name='phonegap-version' value='cli-6.5.0' />
     <!--
         Define a specific version of PhoneGap to build into your app.
-       <preference name="phonegap-version" value="cli-6.5.0" />
+        <preference name="phonegap-version"       value="3.7.0" />
     -->
 
     <!-- Plugins -->
 	 <plugin name="cordova-plugin-geolocation" spec="2.4.1" />
+	<!-- <plugin name="cordova-plugin-camera" spec="2.4.1" /> -->
     <!-- Core plugins -->
 	 
 
@@ -112,7 +114,9 @@
     	<param name="android-package" value="org.apache.cordova.geolocation.GeoBroker" />
 	</feature>
 	
-	
+	<feature name="Camera">
+    <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+</feature>
 
 
 </widget>
