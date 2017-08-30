@@ -2,8 +2,8 @@
 var code_usuario = "";
 $(document).ready(function(e) {  
 	//getProgramaciones();
-	//code_usuario = $.QueryString["ruc"];
-	code_usuario = window.localStorage.getItem("code");
+	code_usuario = $.QueryString["user"];
+	//code_usuario = window.localStorage.getItem("code");
 	$("#actualizar").click(function(e) {
         getProgramaciones();
     });

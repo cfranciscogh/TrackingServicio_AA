@@ -45,7 +45,7 @@ var loginValidar = function(){
 				window.localStorage.setItem("pass",$("#clave").val());
 				window.localStorage.setItem("code", resultado.datos[0].codigo);				
 				window.localStorage.setItem("recordar", recordar);
-			  	location.href = "ordenes.html";
+			  	location.href = "ordenes.html?user=" + resultado.datos[0].codigo;
 		  }
 		  else{
 			   $.mobile.loading('hide');
