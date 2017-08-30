@@ -1,9 +1,9 @@
 // JavaScript Document 20100030838
-var code_usuario = "CRISTOPHER";
+var code_usuario = "";
 $(document).ready(function(e) {  
 	//getProgramaciones();
 	//code_usuario = $.QueryString["ruc"];
-	//code_usuario = window.localStorage.getItem("code");
+	code_usuario = window.localStorage.getItem("code");
 	$("#actualizar").click(function(e) {
         getProgramaciones();
     });
