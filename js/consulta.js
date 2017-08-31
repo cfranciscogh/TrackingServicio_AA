@@ -107,9 +107,9 @@ function getProgramaciones(){
 			$.mobile.loading('hide');
 			if ( resultado.length > 0 ){				
 				for (var i = 0; i<resultado.length;i++){
-					var nroOrden = resultado[i].nombre;		
-					nroOrden = nroOrden.toString().substring(0,11);		
-					$("#ordenes").append("<option value='"+nroOrden+"'>"+ $.trim(resultado[i].nombre)+"</option>");					
+					//var nroOrden = resultado[i].nombre;		
+					//nroOrden = nroOrden.toString().substring(0,11);		
+					$("#ordenes").append("<option value='"+ $.trim(resultado[i].orden)+"'>"+ $.trim(resultado[i].nombre)+"</option>");					
 				}
 				$("#ordenes").selectmenu('refresh', true);
 			}
