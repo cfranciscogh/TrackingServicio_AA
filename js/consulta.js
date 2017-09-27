@@ -46,6 +46,7 @@ function setGuardar(){
 	parametros.culmi = $("#concluido").val();	
 	parametros.obs = $("#observacion").val();	
 	parametros.servicio = $("#ordenes option:selected").text();
+	parametros.cheque = $("#cheque").val();
 	//console.log(parametros);
 	//return;
 	$.mobile.loading('show'); 
@@ -62,6 +63,7 @@ function setGuardar(){
 			$.mobile.loading('hide');
 			 if ( resultado.code == 1){
 				$("#observacion").val("")
+				$("#cheque").val("")
 				$("#concluido").val();	
 				$("#ordenes").val(0);
 				$("#ordenes").selectmenu('refresh', true);

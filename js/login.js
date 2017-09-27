@@ -72,6 +72,12 @@ var loginValidar = function(){
         error : function(jqxhr) 
         {
 			$.mobile.loading('hide');
+			
+			 if ( navigator.notification == null ){
+			  alert('Error de conexi\u00f3n, contactese con sistemas!');
+					return;
+				}
+				
            navigator.notification.alert(
             'Error de conexi\u00f3n, contactese con sistemas!',  // message
             alertDismissed,         // callback
@@ -101,7 +107,7 @@ function cargarUsuarios(){
         data : '',//{"Empresa":"'+empresa+'", "IDEstado" : '+idestado+'}',
 		contentType: "application/json; charset=utf-8",
         success : function(data, textStatus, jqXHR) {
-			console.log(data.d);
+			//console.log(data.d);
 			resultado = $.parseJSON(data.d);
 			$.mobile.loading('hide');			 
 			if ( resultado.length > 0 ){				
