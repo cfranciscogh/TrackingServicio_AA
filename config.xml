@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.antaresaduanas.trackingservicio"
+        id        = "com.antaresaduanas.aasiadoperaciones"
         version   = "1.0.0">
 
-    <name>Tracking Servicio</name>
+    <name>AA–SIAD Operaciones</name>
 
     <description>
-      Consulta de incidencias
+     Aplicativo Móvil para el seguimiento de la trazabilidad de las diferentes operaciones de Antares Aduanas SAC.
     </description>
 
     <author href="http://grupotransmeridian.com.pe" email="fcamacho@meridian.com.pe">
