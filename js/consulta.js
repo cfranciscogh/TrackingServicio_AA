@@ -1,5 +1,6 @@
 // JavaScript Document 20100030838
 var code_usuario = "";
+var Li = null;
 $(document).ready(function(e) {  
 	//getProgramaciones();
 	code_usuario = $.QueryString["user"];
@@ -55,20 +56,15 @@ function getOrdenes(){
 			
 			if ( resultado.length > 0 ){
 				var count = 0;
-				for (var i = 0; i<resultado.length;i++){
-															 
-					//$("#listProgramacion").append("<li data-orden='"+ $.trim(resultado[i].orden)+"' data-al='"+ $.trim(resultado[i].al)+"'><table border='0'><tr><td><input type='checkbox' /></td><td>"+ $.trim(resultado[i].orden) + " - " + resultado[i].servicio + "<br>" + resultado[i].cliente	+ "<br>" + resultado[i].fecha + " " + resultado[i].hora + "<br>" + resultado[i].cont +"</td></tr></table></li>");
+				for (var i = 0; i<resultado.length;i++){ 
 					
-					$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-orden='"+ $.trim(resultado[i].orden)+"' data-al='"+ $.trim(resultado[i].al)+"' data-sol='"+ $.trim(resultado[i].sol)+"'><input type='checkbox' id='check" + i + "' /><label for='check" + i + "'>"+ $.trim(resultado[i].orden) + " - <span>" + resultado[i].servicio + "</span><br>" + resultado[i].cliente	+ "<br>" + resultado[i].fecha + " " + resultado[i].hora + "<br><span>" + resultado[i].cont +"</span></label></li>"); 				 
-					
+					$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-orden='"+ $.trim(resultado[i].orden)+"' data-al='"+ $.trim(resultado[i].al)+"' data-sol='"+ $.trim(resultado[i].sol)+"'><input type='checkbox' id='check" + i + "' /><label for='check" + i + "'>"+ $.trim(resultado[i].orden) + " - <span>" + resultado[i].servicio + "</span><br>" + resultado[i].cliente	+ "<br>" + resultado[i].fecha + " " + resultado[i].hora + "<br><span>" + resultado[i].cont +"</span></label></li>"); 					
 				}
 				
 				$("#listProgramacion").listview("refresh");
 				$("#listProgramacion").find("input").each(function(index, element) {
                     $(this).checkboxradio().trigger('create');
-                });
-				//$("#listProgramacion").find("input").checkboxradio().trigger('create');
-				
+                }); 				
 			 
 			}
 			else{
@@ -116,7 +112,7 @@ function setGuardar(){
 
 	$("#listProgramacion").find("input").each(function(index, element) {
 		if ( $(this).is(":checked") ){
-			var Li = $(this).parent().parent();
+			Li = $(this).parent().parent();
 			var parametros = new Object();
 			parametros.usu = code_usuario;	
 			parametros.orden = $(Li).data("orden");	
@@ -141,15 +137,13 @@ function setGuardar(){
 			success : function(data, textStatus, jqXHR) {
 				//console
 				resultado = $.parseJSON(data.d);
+				console.log(resultado);
 				$.mobile.loading('hide');
 				 if ( resultado.code == 1){
-					$("#observacion").val("")
-					$("#cheque").val("")
-					//$("#concluido").val();	
-					//$("#ordenes").val(0);
-					//$("#ordenes").selectmenu('refresh', true);
-					//$("#concluido").selectmenu('refresh', true);
-					getOrdenes();
+					$("#observacion").val("");
+					$("#cheque").val("");
+					$(Li).remove();	
+					getOrdenes();				
 				 }			  
 				 alerta(resultado.message);
 					 
@@ -161,6 +155,7 @@ function setGuardar(){
 				}
 		
 			});
+			$("#myPopup").popup("close");			
 		}			 
 	});
  
