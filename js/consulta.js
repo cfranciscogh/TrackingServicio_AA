@@ -2,7 +2,7 @@
 var code_usuario = "";
 $(document).ready(function(e) {  
 	//getProgramaciones();
-	code_usuario = "SLICHUI";// $.QueryString["user"];
+	code_usuario = $.QueryString["user"];
 	//code_usuario = window.localStorage.getItem("code");
 	$("#actualizar").click(function(e) {
         getOrdenes();
@@ -129,8 +129,8 @@ function setGuardar(){
 			parametros.contenedor = $(Li).find("span").eq(1).text();
 			parametros.AL = $(Li).data("al");	
 			
-			console.log(parametros);
-			/*$.mobile.loading('show'); 
+			//console.log(parametros);
+			$.mobile.loading('show'); 
 			$.ajax({
 			url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Movil/WS_AuxDespacho.asmx/Grabar2",
 			type: "POST",
@@ -160,7 +160,7 @@ function setGuardar(){
 				  alerta('Error de conexi\u00f3n, contactese con sistemas!');
 				}
 		
-			});*/
+			});
 		}			 
 	});
  
