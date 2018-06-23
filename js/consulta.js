@@ -2,10 +2,10 @@
 var code_usuario = "";
 $(document).ready(function(e) {  
 	//getProgramaciones();
-	code_usuario = $.QueryString["user"];
+	code_usuario = "SLICHUI";// $.QueryString["user"];
 	//code_usuario = window.localStorage.getItem("code");
 	$("#actualizar").click(function(e) {
-        getProgramaciones();
+        getOrdenes();
     });
 	 $("form").keypress(function(e) {
         if (e.which == 13) {
@@ -14,10 +14,16 @@ $(document).ready(function(e) {
     });
 	
 	$("#guardar").click(function(e) {
+		setValidar();
+    });
+	
+	$("#btnContinuar").click(function(e) {
         setGuardar();
     });
 	
- 	getProgramaciones();
+	 
+	
+ 	getOrdenes();
 	
 	
 	//$("#irTracking").attr("href","index.html");
@@ -25,25 +31,144 @@ $(document).ready(function(e) {
 	
 });	
 
+
+function getOrdenes(){
+	
+	$.mobile.loading('show');
+ 
+	$("#listProgramacion").html("");  
+	
+	$.ajax({
+        url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Movil/WS_AuxDespacho.asmx/CargararAuxiliar",
+        type: "POST",
+		//crossDomain: true,
+        dataType : "json",
+        data : '{"usuario":"' + code_usuario + '"}',
+        //contentType: "xml",
+		contentType: "application/json; charset=utf-8",
+        success : function(data, textStatus, jqXHR) {
+		resultado = $.parseJSON(data.d);
+			console.log(resultado);
+			$.mobile.loading('hide');
+			$(".panelMensaje").hide();
+			$(".panelOrden").fadeIn("fast");
+			
+			if ( resultado.length > 0 ){
+				var count = 0;
+				for (var i = 0; i<resultado.length;i++){
+															 
+					//$("#listProgramacion").append("<li data-orden='"+ $.trim(resultado[i].orden)+"' data-al='"+ $.trim(resultado[i].al)+"'><table border='0'><tr><td><input type='checkbox' /></td><td>"+ $.trim(resultado[i].orden) + " - " + resultado[i].servicio + "<br>" + resultado[i].cliente	+ "<br>" + resultado[i].fecha + " " + resultado[i].hora + "<br>" + resultado[i].cont +"</td></tr></table></li>");
+					
+					$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-orden='"+ $.trim(resultado[i].orden)+"' data-al='"+ $.trim(resultado[i].al)+"' data-sol='"+ $.trim(resultado[i].sol)+"'><input type='checkbox' id='check" + i + "' /><label for='check" + i + "'>"+ $.trim(resultado[i].orden) + " - <span>" + resultado[i].servicio + "</span><br>" + resultado[i].cliente	+ "<br>" + resultado[i].fecha + " " + resultado[i].hora + "<br><span>" + resultado[i].cont +"</span></label></li>"); 				 
+					
+				}
+				
+				$("#listProgramacion").listview("refresh");
+				$("#listProgramacion").find("input").each(function(index, element) {
+                    $(this).checkboxradio().trigger('create');
+                });
+				//$("#listProgramacion").find("input").checkboxradio().trigger('create');
+				
+			 
+			}
+			else{
+				$(".panelOrden").hide();
+				$(".panelMensaje").fadeIn("fast");
+			}
+        },
+
+        error : function(jqxhr) 
+        {
+		   //console.log(jqxhr);	
+           alerta('Error de conexi\u00f3n, contactese con sistemas!');
+        }
+
+    });		 
+	
+}
+
+function setValidar(){
+	var FlagCheck = false;
+	$("#listProgramacion").find("input").each(function(index, element) {
+		if ( $(this).is(":checked") )
+			FlagCheck = true;
+	});
+	
+	if (!FlagCheck){
+		alerta("Seleccionar una o más ordenes"); 
+		return;
+	}		
+	$("#myPopup").popup("open");
+}
+
+
 function setGuardar(){
+	var FlagCheck = false;
+	$("#listProgramacion").find("input").each(function(index, element) {
+		if ( $(this).is(":checked") )
+			FlagCheck = true;
+	});
 	
-	if ( $("#ordenes").val() == "" || $("#ordenes").val() == "0" ){
-		alerta("Seleccionar orden");
-		$("#ordenes").focus();
+	if (!FlagCheck){
+		alerta("Seleccionar una o más ordenes"); 
 		return;
 	}
+
+	$("#listProgramacion").find("input").each(function(index, element) {
+		if ( $(this).is(":checked") ){
+			var Li = $(this).parent().parent();
+			var parametros = new Object();
+			parametros.usu = code_usuario;	
+			parametros.orden = $(Li).data("orden");	
+			parametros.culmi = 1;//$("#concluido").val();	
+			parametros.obs = $("#observacion").val();	
+			parametros.servicio = $(Li).find("span").eq(0).text();
+			parametros.cheque = $("#cheque").val();
+			
+			parametros.nrosol = $(Li).data("sol");	
+			parametros.contenedor = $(Li).find("span").eq(1).text();
+			parametros.AL = $(Li).data("al");	
+			
+			console.log(parametros);
+			/*$.mobile.loading('show'); 
+			$.ajax({
+			url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Movil/WS_AuxDespacho.asmx/Grabar2",
+			type: "POST",
+			//crossDomain: true,
+			dataType : "json",
+			data : JSON.stringify(parametros),
+			contentType: "application/json; charset=utf-8",
+			success : function(data, textStatus, jqXHR) {
+				//console
+				resultado = $.parseJSON(data.d);
+				$.mobile.loading('hide');
+				 if ( resultado.code == 1){
+					$("#observacion").val("")
+					$("#cheque").val("")
+					//$("#concluido").val();	
+					//$("#ordenes").val(0);
+					//$("#ordenes").selectmenu('refresh', true);
+					//$("#concluido").selectmenu('refresh', true);
+					getOrdenes();
+				 }			  
+				 alerta(resultado.message);
+					 
+				},
+		
+				error : function(jqxhr) 
+				{ 
+				  alerta('Error de conexi\u00f3n, contactese con sistemas!');
+				}
+		
+			});*/
+		}			 
+	});
+ 
 	
-	if ( $("#concluido").val() == "" ){
-		alerta("Seleccionar concluido");
-		$("#concluido").focus();
-		return;
-	}
-	
-	
-	var parametros = new Object();
+	/*var parametros = new Object();
 	parametros.usu = code_usuario;	
 	parametros.orden = $("#ordenes").val();	
-	parametros.culmi = $("#concluido").val();	
+	parametros.culmi = 1;//$("#concluido").val();	
 	parametros.obs = $("#observacion").val();	
 	parametros.servicio = $("#ordenes option:selected").text();
 	parametros.cheque = $("#cheque").val();
@@ -79,7 +204,7 @@ function setGuardar(){
           alerta('Error de conexi\u00f3n, contactese con sistemas!');
         }
 
-    });		
+    });	*/	
 		
 	
 }
