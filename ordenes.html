@@ -1,74 +1,88 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
-<head>
+	<head>
 	<title>OnTrack Meridian</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css">
-    <link rel="stylesheet" type="text/css" href="css/themes/default/jquery.mobile.theme-1.4.5.min.css">
-     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/themes/default/jquery.mobile.theme-1.4.5.min.css">
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.mobile-1.4.5.min.js"></script>
-    <script src="js/funciones.js"></script>
-    <script src="js/consulta.js"></script>
-    
-    <style type="text/css">
-	#myPopup {
-		overflow:hidden;
-	}
-	</style>
-</head>
+	<script src="js/funciones.js"></script>
+	<script src="js/consulta.js"></script>
+	<style type="text/css">
+#myPopup {
+	overflow: hidden;
+}
+.ui-checkbox {
+	margin: 0px;
+	border: none;
+}
+label {
+	border: none !important;
+}
+</style>
+	</head>
 
-<body >
-
-
-<div data-role="page" class="fondo">
-
-	<div data-role="header" data-position="fixed" data-theme="a">
-		<h1 id="tituloEmpresa">Antares Aduanas</h1>
-	</div><!-- /header -->
-
-	<div id="contentProgramaciones" role="main" class="ui-content">
-    
-    <label for="incidencia">Ordenes Pendiente:</label>
-    <select name="ordenes" id="ordenes"></select>
-    
-    <label for="concluido">Concluido:</label>
-    <select name="concluido" id="concluido"><!--data-native-menu="false"-->
-    	<option value="">Seleccionar</option>
-        <option value="0">NO</option>
-        <option value="1">SI</option>
-    </select>
-    
-    <label for="cheque">Nro.Cheque:</label>
-    <input type="text" name="cheque" id="cheque" />	 
-    
-    <label for="observacion">Observación:</label>
-    <textarea rows="4" name="observacion" id="observacion"></textarea>
-        
-    
-    
-  
+	<body >
+    <div data-role="page" class="fondo">
+      <div data-role="header" data-position="fixed" data-theme="a">
+        <h1 id="tituloEmpresa">APP - AUXILIARES</h1>
+      </div>
+      <!-- /header -->
       
-         
+      <div id="contentProgramaciones" role="main" class="ui-content">
+        <form class="ui-filterable">
+          <input id="rich-autocomplete-input" data-type="search" placeholder="Buscar...">
+        </form>
+        <ul id="listProgramacion" data-role="listview" data-filter="true" data-inset="true" data-input="#rich-autocomplete-input">
+        </ul>
+      </div>
+      <!-- /content --> 
+      
+      <div data-role="popup" id="myPopup"  data-overlay-theme="b">
+        <div data-role="header">
+          <h1>Informaci&oacute;n</h1>
+        </div>
+        <!-- /header -->
+        <div data-role="content">
+          <form> 
+             <label for="cheque">Nro.Cheque:</label>
+            <input type="text" name="cheque" id="cheque" />
+            <label for="observacion">Observaci&oacute;n:</label>
+            <textarea rows="4" name="observacion" id="observacion"></textarea>
+          </form>
+        </div>
+        <!-- /content -->
+        <div data-role="footer">
+          <div data-role="navbar" data-iconpos="top">
+            <ul>
+              <li><a id="btnContinuar" data-icon="check">Continuar</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- /footer --> 
         
-	</div><!-- /content -->
-
-	<div data-role="footer" data-position="fixed">
-		<div data-role="navbar" data-iconpos="top">
-		<ul>
-			
-            <li><a id="guardar" data-position-to="window" data-icon="check">Guardar</a></li>
+        <a style="right: 4px; top: 4px;" href="#pageone" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a> </div>
+        
+        
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar" data-iconpos="top">
+          <ul>
+            <li><a id="guardar" data-position-to="window" data-icon="check">Concluir</a></li>
             <li><a id="actualizar" data-icon="refresh">Actualizar</a></li>
             <!--<li><a id="liberar" data-icon="delete">Liberar</a></li>-->
             
-            <li><a onClick="sesionFromApp();" data-ajax="false" data-icon="delete">Salir</a></li>          	
+            <li><a onClick="sesionFromApp();" data-ajax="false" data-icon="delete">Salir</a></li>
             
-			<!--	-->		 
-		</ul>
-	</div><!-- /navbar -->
-	</div><!-- /footer -->
-</div><!-- /page -->
+            <!--	-->
+          </ul>
+        </div>
+        <!-- /navbar --> 
+      </div>
+      <!-- /footer --> 
+    </div>
+    <!-- /page -->
 
-
-</body>
+    </body>
 </html>
