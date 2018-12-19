@@ -1,4 +1,5 @@
 // JavaScript Document 20100030838
+var rutaWS = "http://www.meridian.com.pe/AntaresAduanas/Servicio/AntaresAduanas/";
 var code_usuario = "";
 var Li = null;
 $(document).ready(function(e) {  
@@ -22,6 +23,12 @@ $(document).ready(function(e) {
         setGuardar();
     });
 	
+	$("#btnCancelar").click(function(e) {
+       $(".page2").fadeOut(100,function(){
+		   $(".page1").fadeIn();
+	   });
+    });
+	
 	 
 	
  	getOrdenes();
@@ -40,7 +47,7 @@ function getOrdenes(){
 	$("#listProgramacion").html("");  
 	
 	$.ajax({
-        url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Movil/WS_AuxDespacho.asmx/CargararAuxiliar",
+        url :  rutaWS + "Movil/WS_AuxDespacho.asmx/CargararAuxiliar",
         type: "POST",
 		//crossDomain: true,
         dataType : "json",
@@ -56,9 +63,9 @@ function getOrdenes(){
 			
 			if ( resultado.length > 0 ){
 				var count = 0;
-				for (var i = 0; i<resultado.length;i++){ 
+				for (var i = 0; i<resultado.length;i++){  
 					
-					$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-orden='"+ $.trim(resultado[i].orden)+"' data-al='"+ $.trim(resultado[i].al)+"' data-sol='"+ $.trim(resultado[i].sol)+"'><input type='checkbox' id='check" + i + "' /><label for='check" + i + "'>"+ $.trim(resultado[i].orden) + " - <span>" + resultado[i].servicio + "</span><br>" + resultado[i].cliente	+ "<br>" + resultado[i].fecha + " " + resultado[i].hora + "<br><span>" + resultado[i].cont +"</span></label></li>"); 					
+					$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-orden='"+ $.trim(resultado[i].orden)+"' data-al='"+ $.trim(resultado[i].al)+"' data-nexp='"+ $.trim(resultado[i].nexp)+"' data-sol='"+ $.trim(resultado[i].sol)+"' data-clie='"+ $.trim(resultado[i].cliente)+"' data-serv='"+ $.trim(resultado[i].servicio)+"'><input type='checkbox' id='check" + i + "' /><label for='check" + i + "'>"+ $.trim(resultado[i].orden) + " - <span>" + resultado[i].servicio + "</span><br>" + resultado[i].cliente	+ "<br>" + resultado[i].fecha + " " + resultado[i].hora + "<br><span>" + resultado[i].cont +"</span></label></li>"); 					
 				}
 				
 				$("#listProgramacion").listview("refresh");
@@ -84,6 +91,7 @@ function getOrdenes(){
 }
 
 function setValidar(){
+	
 	var FlagCheck = false;
 	$("#listProgramacion").find("input").each(function(index, element) {
 		if ( $(this).is(":checked") )
@@ -94,20 +102,36 @@ function setValidar(){
 		alerta("Seleccionar una o más ordenes"); 
 		return;
 	}		
-	$("#myPopup").popup("open");
+	
+	//$("#myPopup").popup("open");
+	$(".page1").fadeOut(100,function(){
+		 $(".page2").fadeIn();
+	 });
 }
 
 
 function setGuardar(){
 	var FlagCheck = false;
+	var FlagSenasa = false;
+	
+	$(".DivFecha").hide();
+	
 	$("#listProgramacion").find("input").each(function(index, element) {
-		if ( $(this).is(":checked") )
+		if ( $(this).is(":checked") ){
 			FlagCheck = true;
+			if ($(this).parent().parent().data("serv") == "SENASA"){
+				FlagSenasa = true;
+			}
+		}
 	});
 	
 	if (!FlagCheck){
 		alerta("Seleccionar una o más ordenes"); 
 		return;
+	}
+	
+	if (FlagSenasa){
+		$(".DivFecha").show();
 	}
 
 	$("#listProgramacion").find("input").each(function(index, element) {
@@ -120,15 +144,33 @@ function setGuardar(){
 			parametros.obs = $("#observacion").val();	
 			parametros.servicio = $(Li).find("span").eq(0).text();
 			parametros.cheque = $("#cheque").val();
-			
+			parametros.nroexp = $(Li).data("nexp");
+			parametros.clien = $(Li).data("clie");
 			parametros.nrosol = $(Li).data("sol");	
 			parametros.contenedor = $(Li).find("span").eq(1).text();
 			parametros.AL = $(Li).data("al");	
 			
-			//console.log(parametros);
+			if  ( $(Li).data("serv") == "SENASA" ){
+				
+				var strFecha = $("#fecha").val();	
+				if (strFecha!= ""){ 
+					  parametros.fecha = strFecha;
+				}
+				else
+					parametros.fecha = "";	
+  
+ 
+				
+				 	
+			}
+			else
+				parametros.fecha = "";	
+			
+			
+			console.log(parametros);
 			$.mobile.loading('show'); 
 			$.ajax({
-			url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Movil/WS_AuxDespacho.asmx/Grabar2",
+			url :  rutaWS + "Movil/WS_AuxDespacho.asmx/Grabar2",
 			type: "POST",
 			//crossDomain: true,
 			dataType : "json",
@@ -142,7 +184,13 @@ function setGuardar(){
 				 if ( resultado.code == 1){
 					$("#observacion").val("");
 					$("#cheque").val("");
+					$("#fecha").val("");	
 					$(Li).remove();	
+					 
+					$(".page2").fadeOut(100,function(){
+					   $(".page1").fadeIn();
+				   });
+					 
 					getOrdenes();				
 				 }			  
 				 alerta(resultado.message);
@@ -151,6 +199,7 @@ function setGuardar(){
 		
 				error : function(jqxhr) 
 				{ 
+					console.log(jqxhr);
 				  alerta('Error de conexi\u00f3n, contactese con sistemas!');
 				}
 		
@@ -215,7 +264,7 @@ function getProgramaciones(){
  	$("#ordenes").html("<option value='0'>Seleccionar</option>");
 	 
 	$.ajax({
-        url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Movil/WS_AuxDespacho.asmx/CargararAuxiliar",
+        url :  rutaWS + "Movil/WS_AuxDespacho.asmx/CargararAuxiliar",
         type: "POST",
 		//crossDomain: true,
         dataType : "json",
