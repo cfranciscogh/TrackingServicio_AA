@@ -8,8 +8,16 @@
 	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="css/jqm-datebox.min.css">  
+    <script type='text/javascript' src="js/jqm-datebox.core.min.js"></script>    
+    <!--<script type='text/javascript' src="js/jqm-datebox.mode.calbox.min.js"></script>   --> 
+    <script type='text/javascript' src="js/jqm-datebox.mode.datebox.min.js"></script>    
+    <!--<script type='text/javascript' src="js/jqm-datebox.mode.flipbox.min.js"></script>-->
+    <script type="text/javascript" src="js/jquery.mobile.datebox.i18n.es-ES.utf8.js"></script>
+      
 	<script src="js/funciones.js"></script>
-	<script src="js/consulta.js?V=1.1.3"></script>
+	<script src="js/consulta.js?V=1.6"></script>
 	<style type="text/css">
 #myPopup {
 	overflow: hidden;
@@ -27,9 +35,11 @@ label {
 	<body >
     <div data-role="page" class="fondo">
       <div data-role="header" data-position="fixed" data-theme="a">
-        <h1 id="tituloEmpresa">APP - AUXILIARES</h1>
+        <h1 id="tituloEmpresa">APP - AUXILIARES v1.3</h1>
       </div>
       <!-- /header -->
+     <div class="page1">
+     
       
       <div id="contentProgramaciones" role="main" class="ui-content">
         <form class="ui-filterable">
@@ -40,32 +50,6 @@ label {
       </div>
       <!-- /content --> 
       
-      <div data-role="popup" id="myPopup"  data-overlay-theme="b">
-        <div data-role="header">
-          <h1>Informaci&oacute;n</h1>
-        </div>
-        <!-- /header -->
-        <div data-role="content">
-          <form> 
-             <label for="cheque">Nro.Cheque:</label>
-            <input type="text" name="cheque" id="cheque" />
-            <label for="observacion">Observaci&oacute;n:</label>
-            <textarea rows="4" name="observacion" id="observacion"></textarea>
-          </form>
-        </div>
-        <!-- /content -->
-        <div data-role="footer">
-          <div data-role="navbar" data-iconpos="top">
-            <ul>
-              <li><a id="btnContinuar" data-icon="check">Continuar</a></li>
-            </ul>
-          </div>
-        </div>
-        <!-- /footer --> 
-        
-        <a style="right: 4px; top: 4px;" href="#pageone" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a> </div>
-        
-        
       <div data-role="footer" data-position="fixed">
         <div data-role="navbar" data-iconpos="top">
           <ul>
@@ -80,7 +64,40 @@ label {
         </div>
         <!-- /navbar --> 
       </div>
-      <!-- /footer --> 
+      <!-- /footer -->    	
+     </div>
+      
+      <div class="page2" style="display: none;">
+
+        <!-- /header -->
+        <div data-role="content">
+          <form style="position: relative;"> 
+             <label for="cheque">Nro.Cheque:</label>
+            <input type="text" name="cheque" id="cheque" />
+            <label for="observacion">Observaci&oacute;n:</label>
+            <textarea rows="4" name="observacion" id="observacion"></textarea>
+            <div class="DivFecha">
+            <label for="fecha">Fecha Inspección:</label>
+             <input readonly type="text" name="fecha" id="fecha" data-role="datebox" data-options='{"mode":"datebox", "useNewStyle":true, "overrideTimeFormat": 12}'  />
+            </div>
+              
+          </form>
+        </div>
+        <!-- /content -->
+        <div data-role="footer" data-position="fixed">
+          <div data-role="navbar" data-iconpos="top">
+            <ul>
+              <li><a id="btnContinuar" data-icon="check">Continuar</a></li>
+              <li><a id="btnCancelar" data-icon="delete">Cancelar</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- /footer --> 
+         
+        </div>
+        
+        
+       
     </div>
     <!-- /page -->
 
