@@ -93,27 +93,7 @@ function getOrdenes(){
 function setValidar(){
 	
 	var FlagCheck = false;
-	$("#listProgramacion").find("input").each(function(index, element) {
-		if ( $(this).is(":checked") )
-			FlagCheck = true;
-	});
-	
-	if (!FlagCheck){
-		alerta("Seleccionar una o más ordenes"); 
-		return;
-	}		
-	
-	//$("#myPopup").popup("open");
-	$(".page1").fadeOut(100,function(){
-		 $(".page2").fadeIn();
-	 });
-}
-
-
-function setGuardar(){
-	var FlagCheck = false;
 	var FlagSenasa = false;
-	
 	$(".DivFecha").hide();
 	
 	$("#listProgramacion").find("input").each(function(index, element) {
@@ -128,11 +108,36 @@ function setGuardar(){
 	if (!FlagCheck){
 		alerta("Seleccionar una o más ordenes"); 
 		return;
-	}
+	}	
 	
+		
 	if (FlagSenasa){
 		$(".DivFecha").show();
 	}
+	
+	//$("#myPopup").popup("open");
+	$(".page1").fadeOut(100,function(){
+		 $(".page2").fadeIn();
+	 });
+}
+
+
+function setGuardar(){
+	var FlagCheck = false;
+	
+	
+	
+	$("#listProgramacion").find("input").each(function(index, element) {
+		if ( $(this).is(":checked") ){
+			FlagCheck = true;			
+		}
+	});
+	
+	if (!FlagCheck){
+		alerta("Seleccionar una o más ordenes"); 
+		return;
+	}
+
 
 	$("#listProgramacion").find("input").each(function(index, element) {
 		if ( $(this).is(":checked") ){
