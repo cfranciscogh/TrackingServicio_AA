@@ -17,7 +17,7 @@
     <script type="text/javascript" src="js/jquery.mobile.datebox.i18n.es-ES.utf8.js"></script>
       
 	<script src="js/funciones.js"></script>
-	<script src="js/consulta.js?V=1.6"></script>
+	<script src="js/consulta.js?V=1.7"></script>
 	<style type="text/css">
 #myPopup {
 	overflow: hidden;
@@ -35,7 +35,7 @@ label {
 	<body >
     <div data-role="page" class="fondo">
       <div data-role="header" data-position="fixed" data-theme="a">
-        <h1 id="tituloEmpresa">AA-SIAD v1.3</h1>
+        <h1 id="tituloEmpresa">APP-SIAD v1.4</h1>
       </div>
       <!-- /header -->
      <div class="page1">
@@ -47,6 +47,7 @@ label {
         </form>
         <ul id="listProgramacion" data-role="listview" data-filter="true" data-inset="true" data-input="#rich-autocomplete-input">
         </ul>
+        <br><br>
       </div>
       <!-- /content --> 
       
@@ -75,11 +76,29 @@ label {
              <label for="cheque">Nro.Cheque:</label>
             <input type="text" name="cheque" id="cheque" />
             <label for="observacion">Observaci&oacute;n:</label>
-            <textarea rows="4" name="observacion" id="observacion"></textarea>
-            <div class="DivFecha">
-            <label for="fecha">Fecha Inspección:</label>
+            <textarea rows="3" name="observacion" id="observacion" style="resize: none;"></textarea>
+            
+            <div class="DivNoti">
+            <label for="fecha">Notificado:</label>
+             <select onChange="setValidarNotificado(this.value);" name="notificado" id="notificado">
+             	<option value="0">NO</option>
+             	<option value="1">SI</option>
+             </select>
+			</div>
+           <div class="DivFecha">
+           <label for="fecha">Fecha Inspecci&oacute;n:</label>
              <input readonly type="text" name="fecha" id="fecha" data-role="datebox" data-options='{"mode":"datebox", "useNewStyle":true, "overrideTimeFormat": 12}'  />
+			</div>
+            <div class="DivObsNoti">
+            
+             <label for="observacion2">Motivo (Notificado):</label>
+              	<textarea rows="3" name="observacion2" id="observacion2" style="resize: none;"></textarea>
+            
+             	
+             	
             </div>
+             
+              
               
           </form>
         </div>
