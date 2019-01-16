@@ -1,5 +1,6 @@
-// JavaScript Document 20100030838
 var rutaWS = "http://www.meridian.com.pe/AntaresAduanas/Servicio/AntaresAduanas/";
+//var rutaWS = "http://www.meridian.com.pe/AntaresAduanas/Servicio_TEST/AntaresAduanas/"; //TEST
+
 var code_usuario = "";
 var Li = null;
 $(document).ready(function(e) {  
@@ -65,7 +66,10 @@ function getOrdenes(){
 				var count = 0;
 				for (var i = 0; i<resultado.length;i++){  
 					
-					$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-orden='"+ $.trim(resultado[i].orden)+"' data-al='"+ $.trim(resultado[i].al)+"' data-nexp='"+ $.trim(resultado[i].nexp)+"' data-sol='"+ $.trim(resultado[i].sol)+"' data-clie='"+ $.trim(resultado[i].cliente)+"' data-serv='"+ $.trim(resultado[i].servicio)+"'><input type='checkbox' id='check" + i + "' /><label for='check" + i + "'>"+ $.trim(resultado[i].orden) + " - <span>" + resultado[i].servicio + "</span><br>" + resultado[i].cliente	+ "<br>" + resultado[i].fecha + " " + resultado[i].hora + "<br><span>" + resultado[i].cont +"</span></label></li>"); 					
+					
+					//$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-orden='"+ $.trim(resultado[i].orden)+"' data-al='"+ $.trim(resultado[i].al)+"' data-nexp='"+ $.trim(resultado[i].nexp)+"' data-sol='"+ $.trim(resultado[i].sol)+"' data-clie='"+ $.trim(resultado[i].cliente)+"' data-serv='"+ $.trim(resultado[i].servicio)+"'><input type='checkbox' id='check" + i + "' /><label for='check" + i + "'>"+ $.trim(resultado[i].orden) + " - <span>" + resultado[i].servicio + "</span><br>" + resultado[i].cliente	+ "<br>" + resultado[i].fecha + " " + resultado[i].hora + "<br><span>" + resultado[i].cont +"</span></label></li>"); 
+					
+					$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-orden='"+ $.trim(resultado[i].orden)+"' data-al='"+ $.trim(resultado[i].al)+"' data-nexp='"+ $.trim(resultado[i].nexp)+"' data-sol='"+ $.trim(resultado[i].sol)+"' data-clie='"+ $.trim(resultado[i].cliente)+"' data-serv='"+ $.trim(resultado[i].servicio)+"'><input type='checkbox' id='check" + i + "' /><label for='check" + i + "'><span style='display:block;'>"+ $.trim(resultado[i].orden) + " - " + resultado[i].servicio + "</span><span style='display:block;'>" + resultado[i].cliente	+ "</span><span style='display:block;'>" + resultado[i].fecha + " " + resultado[i].hora + "</span><span style='display:block;'>" + resultado[i].cont +"</span><span style='display:block;'>" + (resultado[i].DIR1 != "" ? resultado[i].DIR1 : "") + (resultado[i].DIR2 != "" ? resultado[i].DIR2 : "") + (resultado[i].DIR3 != "" ?  resultado[i].DIR3 : "") + "</span></label></li>");
 				}
 				
 				$("#listProgramacion").listview("refresh");
@@ -91,10 +95,13 @@ function getOrdenes(){
 }
 
 function setValidar(){
-	
+	$("#notificado").val(0);
+	$('select#notificado').selectmenu('refresh');
+	$(".page2 input[type='text']").val("");
+	$(".page2 textarea").val("");
 	var FlagCheck = false;
 	var FlagSenasa = false;
-	$(".DivFecha").hide();
+	$(".DivFecha, .DivObsNoti, .DivNoti").hide();
 	
 	$("#listProgramacion").find("input").each(function(index, element) {
 		if ( $(this).is(":checked") ){
@@ -112,7 +119,7 @@ function setValidar(){
 	
 		
 	if (FlagSenasa){
-		$(".DivFecha").show();
+		$(".DivFecha, .DivNoti").show();
 	}
 	
 	//$("#myPopup").popup("open");
@@ -121,7 +128,15 @@ function setValidar(){
 	 });
 }
 
-
+function setValidarNotificado(a){
+	$(".DivFecha, .DivObsNoti").hide();
+	if (a==0){
+		$(".DivFecha").show();
+	}
+	else{
+		$(".DivObsNoti").show();
+	}
+}
 function setGuardar(){
 	var FlagCheck = false;
 	
@@ -137,6 +152,22 @@ function setGuardar(){
 		alerta("Seleccionar una o más ordenes"); 
 		return;
 	}
+	
+	if ($(".DivFecha").css("display") == "block"){
+		if ($("#fecha").val() == ""){
+			alerta("Ingresar fecha"); 
+			$("#fecha").focus()
+			return;
+		}
+	}
+	
+	if ($(".DivObsNoti").css("display") == "block"){
+		if ($("#observacion2").val() == ""){
+			alerta("Ingresar motivo"); 
+			$("#observacion2").focus()
+			return;
+		}
+	}
 
 
 	$("#listProgramacion").find("input").each(function(index, element) {
@@ -147,29 +178,26 @@ function setGuardar(){
 			parametros.orden = $(Li).data("orden");	
 			parametros.culmi = 1;//$("#concluido").val();	
 			parametros.obs = $("#observacion").val();	
-			parametros.servicio = $(Li).find("span").eq(0).text();
+			parametros.servicio = $(Li).data("serv");
 			parametros.cheque = $("#cheque").val();
 			parametros.nroexp = $(Li).data("nexp");
 			parametros.clien = $(Li).data("clie");
 			parametros.nrosol = $(Li).data("sol");	
-			parametros.contenedor = $(Li).find("span").eq(1).text();
+			parametros.contenedor = $(Li).find("span").eq(3).text();
 			parametros.AL = $(Li).data("al");	
+			parametros.chknotifi = $("#notificado").val();	
+			parametros.obsnota = $("#observacion2").val();
 			
-			if  ( $(Li).data("serv") == "SENASA" ){
-				
+			if  ( $(Li).data("serv") == "SENASA" ){				
 				var strFecha = $("#fecha").val();	
 				if (strFecha!= ""){ 
 					  parametros.fecha = strFecha;
 				}
 				else
-					parametros.fecha = "";	
-  
- 
-				
-				 	
+					parametros.fecha = "01/01/1900";				 	
 			}
 			else
-				parametros.fecha = "";	
+				parametros.fecha = "01/01/1900";	
 			
 			
 			console.log(parametros);
@@ -183,6 +211,7 @@ function setGuardar(){
 			contentType: "application/json; charset=utf-8",
 			success : function(data, textStatus, jqXHR) {
 				//console
+				console.log(data.d);
 				resultado = $.parseJSON(data.d);
 				console.log(resultado);
 				$.mobile.loading('hide');
