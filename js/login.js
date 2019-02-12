@@ -30,7 +30,7 @@ var loginValidar = function(){
    	} 
 	 
 	$.ajax({
-        url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Autenticacion/Login.asmx/LoginAux",
+        url : "http://www.meridian.com.pe/AntaresAduanas/Servicio/AntaresAduanas/Autenticacion/Login.asmx/LoginAux",
         type: "POST",
 		crossDomain: true,
         dataType : "json",
