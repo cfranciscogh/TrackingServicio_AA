@@ -1,5 +1,5 @@
-var rutaWS = "http://www.meridian.com.pe/AntaresAduanas/Servicio/AntaresAduanas/";
-//var rutaWS = "http://www.meridian.com.pe/AntaresAduanas/Servicio_TEST/AntaresAduanas/"; //TEST
+//var rutaWS = "http://www.meridian.com.pe/AntaresAduanas/Servicio/AntaresAduanas/";
+var rutaWS = "http://www.meridian.com.pe/AntaresAduanas/Servicio_TEST/AntaresAduanas/";
 
 var code_usuario = "";
 var Li = null;
@@ -69,7 +69,7 @@ function getOrdenes(){
 					
 					//$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-orden='"+ $.trim(resultado[i].orden)+"' data-al='"+ $.trim(resultado[i].al)+"' data-nexp='"+ $.trim(resultado[i].nexp)+"' data-sol='"+ $.trim(resultado[i].sol)+"' data-clie='"+ $.trim(resultado[i].cliente)+"' data-serv='"+ $.trim(resultado[i].servicio)+"'><input type='checkbox' id='check" + i + "' /><label for='check" + i + "'>"+ $.trim(resultado[i].orden) + " - <span>" + resultado[i].servicio + "</span><br>" + resultado[i].cliente	+ "<br>" + resultado[i].fecha + " " + resultado[i].hora + "<br><span>" + resultado[i].cont +"</span></label></li>"); 
 					
-					$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-orden='"+ $.trim(resultado[i].orden)+"' data-al='"+ $.trim(resultado[i].al)+"' data-nexp='"+ $.trim(resultado[i].nexp)+"' data-sol='"+ $.trim(resultado[i].sol)+"' data-clie='"+ $.trim(resultado[i].cliente)+"' data-serv='"+ $.trim(resultado[i].servicio)+"'><input type='checkbox' id='check" + i + "' /><label for='check" + i + "'><span style='display:block;'>"+ $.trim(resultado[i].orden) + " - " + resultado[i].servicio + "</span><span style='display:block;'>" + resultado[i].cliente	+ "</span><span style='display:block;'>" + resultado[i].fecha + " " + resultado[i].hora + "</span><span style='display:block;'>" + resultado[i].cont +"</span><span style='display:block;'>" + (resultado[i].DIR1 != "" ? resultado[i].DIR1 : "") + (resultado[i].DIR2 != "" ? resultado[i].DIR2 : "") + (resultado[i].DIR3 != "" ?  resultado[i].DIR3 : "") + "</span></label></li>");
+					$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-previo='"+ $.trim(resultado[i].sprevio)+"' data-orden='"+ $.trim(resultado[i].orden)+"' data-al='"+ $.trim(resultado[i].al)+"' data-nexp='"+ $.trim(resultado[i].nexp)+"' data-sol='"+ $.trim(resultado[i].sol)+"' data-clie='"+ $.trim(resultado[i].cliente)+"' data-serv='"+ $.trim(resultado[i].servicio)+"'><input type='checkbox' id='check" + i + "' /><label for='check" + i + "'><span style='display:block;'>"+ $.trim(resultado[i].orden) + " - " + resultado[i].servicio + "</span><span style='display:block;'>" + resultado[i].cliente	+ "</span><span style='display:block;'>" + resultado[i].fecha + " " + resultado[i].hora + "</span><span style='display:block;'>" + resultado[i].cont +"</span><span style='display:block;'>" + (resultado[i].DIR1 != "" ? resultado[i].DIR1 : "") + (resultado[i].DIR2 != "" ? resultado[i].DIR2 : "") + (resultado[i].DIR3 != "" ?  resultado[i].DIR3 : "") + "</span></label></li>");
 				}
 				
 				$("#listProgramacion").listview("refresh");
@@ -187,6 +187,7 @@ function setGuardar(){
 			parametros.AL = $(Li).data("al");	
 			parametros.chknotifi = $("#notificado").val();	
 			parametros.obsnota = $("#observacion2").val();
+			parametros.Sprevio = $(Li).data("previo");
 			
 			if  ( $(Li).data("serv") == "SENASA" ){				
 				var strFecha = $("#fecha").val();	
