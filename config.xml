@@ -2,7 +2,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.antaresaduanas.aasiadoperaciones"
-        version   = "1.4.1">
+        version   = "1.5.1">
 
     <name>AA–SIAD Operaciones</name>
 
