@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>AA–SIAD 1.5.2</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/themes/default/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet" type="text/css" href="css/themes/default/jquery.mobile.theme-1.4.5.min.css">
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="css/jqm-datebox.min.css">  
+    <script type='text/javascript' src="js/jqm-datebox.core.min.js"></script>    
+    <!--<script type='text/javascript' src="js/jqm-datebox.mode.calbox.min.js"></script>   --> 
+    <script type='text/javascript' src="js/jqm-datebox.mode.datebox.min.js"></script>    
+    <!--<script type='text/javascript' src="js/jqm-datebox.mode.flipbox.min.js"></script>-->
+    <script type="text/javascript" src="js/jquery.mobile.datebox.i18n.es-ES.utf8.js"></script>
+      
+	<script src="js/funciones.js"></script>
+	<script src="js/vbo.js?v=1.0.3"></script>
+	<style type="text/css">
+#myPopup {
+	overflow: hidden;
+}
+.ui-checkbox {
+	margin: 0px;
+	border: none;
+}
+label {
+	border: none !important;
+}
+.ui-checkbox, .ui-radio{
+	margin:0px;
+}
+</style>
+	</head>
+
+	<body >
+    <div data-role="page" class="fondo">
+      <div data-role="header" data-position="fixed" data-theme="a">
+        <h1 id="tituloEmpresa">AA–SIAD 1.5.2</h1>
+      </div>
+      <!-- /header -->
+     <div class="page1">
+     
+      
+      <div id="contentProgramaciones" role="main" class="ui-content">
+        <form class="ui-filterable">
+          <input id="rich-autocomplete-input" data-type="search" placeholder="Buscar...">
+        </form>
+        <ul id="listProgramacion" data-role="listview" data-filter="true" data-inset="true" data-input="#rich-autocomplete-input">
+        </ul>
+        <br><br>
+      </div>
+      <!-- /content --> 
+      
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar" data-iconpos="top">
+          <ul>
+            <li><a id="guardar" data-position-to="window" data-icon="check">Concluir</a></li>
+            <li><a id="actualizar" data-icon="refresh">Actualizar</a></li>
+            <!--<li><a id="liberar" data-icon="delete">Liberar</a></li>-->
+            
+            <li><a onClick="sesionFromApp();" data-ajax="false" data-icon="delete">Salir</a></li>
+            
+            <!--	-->
+          </ul>
+        </div>
+        <!-- /navbar --> 
+      </div>
+      <!-- /footer -->    	
+     </div>
+      
+      <div class="page2" style="display: none;">
+
+        <!-- /header -->
+        <div data-role="content">
+          <form style="position: relative;"> 
+            <div class="DivFecha">
+				<label for="fecha">Fecha Libre Sobrestadía:</label>
+				<input readonly type="text" name="fecha" id="fecha" data-role="datebox" data-options='{"mode":"datebox", "useNewStyle":true, "overrideTimeFormat": 12}'  />
+			</div>
+			
+            <div class="DivNoti">
+            <label for="fecha">Depósito de Vacio:</label>
+             <select name="deposito" id="deposito"> 
+             </select>
+			</div>
+			
+            <label for="observacion">Observaci&oacute;n:</label>
+            <textarea rows="3" name="observacion" id="observacion" style="resize: none;"></textarea>  
+
+			<a id="btnFoto" data-position-to="window" data-icon="camera" data-inline="true" data-corners="true" data-shadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-left ui-icon-camera"> Tomar Foto </a>
+            <a id="btnAlbum" data-position-to="window" data-icon="search" data-inline="true" data-corners="true" data-shadow="true" data-wrapperels="span" class="ui-btn ui-shadow ui-btn-corner-all ui-btn-inline ui-btn-icon-left ui-icon-search"> Albúm </a>
+                   
+              
+          </form>
+        </div>
+        <!-- /content -->
+        <div data-role="footer" data-position="fixed">
+          <div data-role="navbar" data-iconpos="top">
+            <ul>
+              <li><a id="btnContinuar" data-icon="check">Continuar</a></li>
+              <li><a id="btnCancelar" data-icon="delete">Cancelar</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- /footer --> 
+         
+        </div>
+        
+        
+       
+    </div>
+    <!-- /page -->
+
+    </body>
+</html>
