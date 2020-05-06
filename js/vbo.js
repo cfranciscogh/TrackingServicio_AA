@@ -51,7 +51,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 function sendImage(src) {
     src = (src == 'library') ? Camera.PictureSourceType.PHOTOLIBRARY : Camera.PictureSourceType.CAMERA;
     navigator.camera.getPicture(CamaraSuccess, CamaraFail, { 
-        quality: 60,
+        quality: 70,
         destinationType: navigator.camera.DestinationType.DATA_URL,
         sourceType: src,
         encodingType: navigator.camera.EncodingType.JPEG,
@@ -61,6 +61,9 @@ function sendImage(src) {
  
 function CamaraSuccess(imageData) {
     $.mobile.loading('show'); 
+	$("#imgFoto").attr("src",imageData);
+	return;
+	
     if (window.FormData !== undefined) {
         var data = new FormData();
         data.append("IDPedido", $("#IDPedido").val());
@@ -118,7 +121,7 @@ function CamaraSuccess(imageData) {
 }
 
 function CamaraFail(message) {
-    alert(message);
+    //alert(message);
 }
 
 
@@ -154,9 +157,9 @@ $(document).ready(function(e) {
     });
 	
 	 
-	
- 	getOrdenes();
 	cargarDeposito();
+ 	getOrdenes();
+	
 	
 	
 	//$("#irTracking").attr("href","index.html");
@@ -177,7 +180,7 @@ function cargarDeposito(){
         data : '',//{"Empresa":"'+empresa+'", "IDEstado" : '+idestado+'}',
 		contentType: "application/json; charset=utf-8",
         success : function(data, textStatus, jqXHR) {
-			console.log(data.d);
+			//console.log(data.d);
 			resultado = $.parseJSON(data.d);
 			$.mobile.loading('hide');			 
 			if ( resultado.length > 0 ){				
@@ -277,7 +280,7 @@ function setValidar(){
 		$(".DivFecha, .DivNoti").show();
 	}
 	
-	
+	$("#imgFoto").attr("src","");
 	//$("#myPopup").popup("open");
 	$(".page1").fadeOut(100,function(){
 		 $(".page2").fadeIn();
