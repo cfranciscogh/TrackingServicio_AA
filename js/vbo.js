@@ -412,7 +412,7 @@ function setGuardar(){
  	
 }
  
-function setOrden(parametros); 
+function setOrden(parametros){
 	console.log(parametros);	
 	//return;	
 	$.mobile.loading('show'); 
