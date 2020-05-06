@@ -350,7 +350,7 @@ function setGuardar(){
 			parametros.orden = $(Li).data("orden");	
 			parametros.correlativo = $(Li).data("corr");
 			parametros.entidad = $(Li).data("enti");
-			parametros.tipomemo = 0;//$(Li).data("serv");
+			parametros.tipomemo = "DEFINITIVO";// 0;//$(Li).data("serv");
 			parametros.dtdevol = $("#deposito").val();
 			parametros.fecsob = $("#fecha").val();
 			parametros.ruta = '';//"\\10.93.1.233\Siad\VistoBueno\VistoBueno\Memos\";
