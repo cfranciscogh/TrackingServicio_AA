@@ -353,7 +353,7 @@ function setGuardar(){
 			parametros.tipomemo = 0;//$(Li).data("serv");
 			parametros.dtdevol = $("#deposito").val();
 			parametros.fecsob = $("#fecha").val();
-			parametros.ruta = "\\10.93.1.233\Siad\VistoBueno\VistoBueno\Memos\";
+			parametros.ruta = '';//"\\10.93.1.233\Siad\VistoBueno\VistoBueno\Memos\";
 			parametros.obs = $("#observacion").val();
 			console.log(parametros); 
 			
@@ -376,7 +376,7 @@ function setGuardar(){
 						console.log(resp);
 						if (resp[0] == 0) {
 							//alerta(resp[1]);
-							parametros.ruta = parametros.ruta + resp[1];  				
+							parametros.ruta = resp[1];  				
 							setOrden(parametros);
 						}
 						else {
