@@ -60,8 +60,9 @@ function sendImage(src) {
 }
  
 function CamaraSuccess(imageData) {
-    $.mobile.loading('show'); 
-	$("#imgFoto").attr("src",imageData);
+    //$.mobile.loading('show'); 
+	$("#imgFoto").attr("src", "data:image/jpeg;base64," + imageData);
+	alert(imageData);
 	return;
 	
     if (window.FormData !== undefined) {
