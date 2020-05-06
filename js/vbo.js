@@ -102,10 +102,11 @@ function CamaraSuccess(imageData) {
                 if (xhr.responseText && xhr.responseText[0] == "{")
                     err = JSON.parse(xhr.responseText).Message;
 
-                $('#file').val("");
+                //$('#file').val("");
                 console.log(xhr);
                 console.log(status);
-                alerta("Error, no se pudo subir la foto");
+				alerta("Error, no se pudo subir la foto");
+                alerta(err);
                 $.mobile.loading('hide');
             }
         });
