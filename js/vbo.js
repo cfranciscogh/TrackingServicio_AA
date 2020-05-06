@@ -57,6 +57,7 @@ function sendImage(src) {
         quality: 70,
         destinationType: navigator.camera.DestinationType.DATA_URL,
         sourceType: src,
+		correctOrientation: true,
         encodingType: navigator.camera.EncodingType.JPEG,
         saveToPhotoAlbum: false
     });
