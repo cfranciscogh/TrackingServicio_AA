@@ -341,7 +341,7 @@ function setGuardar(){
 			parametros.tipomemo = 0;//$(Li).data("serv");
 			parametros.dtdevol = $("#deposito").val();
 			parametros.fecsob = $("#fecha").val();
-			parametros.ruta =  $("#imgFoto").attr("src"); "";//$(Li).data("nexp");
+			parametros.ruta = "";// $("#imgFoto").attr("src"); "";//$(Li).data("nexp");
 			parametros.obs = $("#observacion").val();
 			console.log(parametros);
 			
