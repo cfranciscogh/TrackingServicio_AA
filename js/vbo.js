@@ -337,7 +337,11 @@ function setGuardar(){
 	}
 	
 	
-	 
+	if ( $("#imgFoto").attr("src") == ""){
+			alerta("Debe tomar foto al memo"); 
+			return;
+	}
+	
 	
 
 
