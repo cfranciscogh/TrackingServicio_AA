@@ -345,7 +345,7 @@ function setGuardar(){
 			parametros.obs = $("#observacion").val();
 			console.log(parametros);
 			
-			return;
+			//return;
 			
 			$.mobile.loading('show'); 
 			$.ajax({
