@@ -341,8 +341,10 @@ function setGuardar(){
 	$("#listProgramacion").find("input").each(function(index, element) {
 		if ( $(this).is(":checked") ){
 			Li = $(this).parent().parent();			
+			$.mobile.loading('show'); 
 			
 			if (window.FormData !== undefined) {
+				alert(imageData64);
 				var data = new FormData();
 				data.append("imagen", $(Li).data("orden"));
 				data.append("tipo", "vbo");
@@ -359,10 +361,7 @@ function setGuardar(){
 						resp = result.toString().split("|");
 						console.log(resp);
 						if (resp[0] == 0) {
-							alerta(resp[1]);
-							
-							
-							
+							alerta(resp[1]);							
 							
 							var parametros = new Object();
 							parametros.usu = code_usuario;	
@@ -378,7 +377,7 @@ function setGuardar(){
 							
 							//return;
 							
-							$.mobile.loading('show'); 
+							
 							$.ajax({
 							url :  rutaWS + "Movil/WS_Aux_VB.asmx/Grabar",
 							type: "POST",
@@ -422,20 +421,19 @@ function setGuardar(){
 						}
 						else {
 							//alerta("Error, no se pudo subir la foto");
-							alerta(resp[1]);
+							alerta(resp[2]);
 							//alerta(resp[2]);
 						}
 							
 
 						$.mobile.loading('hide');
-						$('#fileFoto').val("");
+						 
 					},
 					error: function (xhr, status, p3, p4) {
 						var err = "Error " + " " + status + " " + p3 + " " + p4;
 						if (xhr.responseText && xhr.responseText[0] == "{")
 							err = JSON.parse(xhr.responseText).Message;
 
-						$('#file').val("");
 						console.log(xhr);
 						console.log(status);
 						alerta("Error, no se pudo subir la foto");
