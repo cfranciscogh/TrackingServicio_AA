@@ -2,6 +2,7 @@
 var rutaWS = "http://www.meridian.com.pe/AntaresAduanas/Servicio_TEST/AntaresAduanas/";
 var rutaUpload = "http://www.meridian.com.pe/AntaresAduanas/Servicio_TEST/";
 //var rutaWS = "http://localhost:34927/AntaresAduanas/";
+var parametros = null;
 var code_usuario = "";
 var Li = null;
 var imageData64 = "";
@@ -95,7 +96,7 @@ function CamaraSuccess(imageData) {
                     
 
                 $.mobile.loading('hide');
-                $('#fileFoto').val("");
+                //$('#fileFoto').val("");
             },
             error: function (xhr, status, p3, p4) {
                 var err = "Error " + " " + status + " " + p3 + " " + p4;
@@ -344,8 +345,20 @@ function setGuardar(){
 			Li = $(this).parent().parent();			
 			$.mobile.loading('show'); 
 			
+			var parametros = new Object();
+			parametros.usu = code_usuario;	
+			parametros.orden = $(Li).data("orden");	
+			parametros.correlativo = $(Li).data("corr");
+			parametros.entidad = $(Li).data("enti");
+			parametros.tipomemo = 0;//$(Li).data("serv");
+			parametros.dtdevol = $("#deposito").val();
+			parametros.fecsob = $("#fecha").val();
+			parametros.ruta = "\\10.93.1.233\Siad\VistoBueno\VistoBueno\Memos\";
+			parametros.obs = $("#observacion").val();
+			console.log(parametros); 
+			
 			if (window.FormData !== undefined) {
-				alert(imageData64);
+				//alert(imageData64);
 				var data = new FormData();
 				data.append("imagen", $(Li).data("orden"));
 				data.append("tipo", "vbo");
@@ -362,70 +375,13 @@ function setGuardar(){
 						resp = result.toString().split("|");
 						console.log(resp);
 						if (resp[0] == 0) {
-							alerta(resp[1]);							
-							
-							var parametros = new Object();
-							parametros.usu = code_usuario;	
-							parametros.orden = $(Li).data("orden");	
-							parametros.correlativo = $(Li).data("corr");
-							parametros.entidad = $(Li).data("enti");
-							parametros.tipomemo = 0;//$(Li).data("serv");
-							parametros.dtdevol = $("#deposito").val();
-							parametros.fecsob = $("#fecha").val();
-							parametros.ruta = $("#imgFoto").attr("src"); "";//$(Li).data("nexp");
-							parametros.obs = $("#observacion").val();
-							console.log(parametros);
-							
-							//return;
-							
-							
-							$.ajax({
-							url :  rutaWS + "Movil/WS_Aux_VB.asmx/Grabar",
-							type: "POST",
-							//crossDomain: true,
-							dataType : "json",
-							data : JSON.stringify(parametros),
-							contentType: "application/json; charset=utf-8",
-							success : function(data, textStatus, jqXHR) {
-								//console
-								console.log(data.d);
-								resultado = $.parseJSON(data.d);
-								console.log(resultado);
-								$.mobile.loading('hide');
-								 if ( resultado.code == 1){
-									$("#observacion").val("");
-									$("#deposito").val("0");
-									$("#fecha").val("");	
-									$(Li).remove();	
-									 
-									$(".page2").fadeOut(100,function(){
-									   $(".page1").fadeIn();
-								   });
-									 
-									getOrdenes();				
-								 }			  
-								 alerta(resultado.message);
-									 
-								},
-						
-								error : function(jqxhr) 
-								{ 
-									console.log(jqxhr);
-								  alerta('Error de conexi\u00f3n, contactese con sistemas!');
-								}
-						
-							});
-							
-							
-							
-							//setFotosPedido($.QueryString["IDPedido"]);
+							//alerta(resp[1]);
+							parametros.ruta = parametros.ruta + resp[1];  				
+							setOrden(parametros);
 						}
 						else {
-							//alerta("Error, no se pudo subir la foto");
 							alerta(resp[2]);
-							//alerta(resp[2]);
-						}
-							
+						}						
 
 						$.mobile.loading('hide');
 						 
@@ -454,6 +410,48 @@ function setGuardar(){
 		}			 
 	});
  	
+}
+ 
+function setOrden(parametros); 
+	console.log(parametros);	
+	//return;	
+	$.mobile.loading('show'); 
+	$.ajax({
+	url :  rutaWS + "Movil/WS_Aux_VB.asmx/Grabar",
+	type: "POST",
+	//crossDomain: true,
+	dataType : "json",
+	data : JSON.stringify(parametros),
+	contentType: "application/json; charset=utf-8",
+	success : function(data, textStatus, jqXHR) {
+		//console
+		console.log(data.d);
+		resultado = $.parseJSON(data.d);
+		console.log(resultado);
+		$.mobile.loading('hide');
+		 if ( resultado.code == 1){
+			$("#observacion").val("");
+			$("#deposito").val("0");
+			$("#fecha").val("");	
+			$(Li).remove();	
+			 
+			$(".page2").fadeOut(100,function(){
+			   $(".page1").fadeIn();
+		   });
+			 
+			getOrdenes();				
+		 }			  
+		 alerta(resultado.message);
+			 
+		},
+
+		error : function(jqxhr) 
+		{ 
+			console.log(jqxhr);
+		  alerta('Error de conexi\u00f3n, contactese con sistemas!');
+		}
+
+	});
 }
 
 
