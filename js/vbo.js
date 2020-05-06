@@ -62,7 +62,7 @@ function sendImage(src) {
 function CamaraSuccess(imageData) {
     //$.mobile.loading('show'); 
 	$("#imgFoto").attr("src", "data:image/jpeg;base64," + imageData);
-	alert(imageData);
+	//alert(imageData);
 	return;
 	
     if (window.FormData !== undefined) {
@@ -228,7 +228,7 @@ function getOrdenes(){
 				for (var i = 0; i<resultado.length;i++){ 				
 					//$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-previo='"+ $.trim(resultado[i].sprevio)+"' data-orden='"+ $.trim(resultado[i].vbo_orde)+"' data-al='"+ $.trim(resultado[i].al)+"' data-nexp='"+ $.trim(resultado[i].nexp)+"' data-sol='"+ $.trim(resultado[i].sol)+"' data-clie='"+ $.trim(resultado[i].cliente)+"' data-serv='"+ $.trim(resultado[i].servicio)+"'><input type='checkbox' id='check" + i + "' /><label for='check" + i + "'><span style='display:block;'>"+ $.trim(resultado[i].vbo_orde) + " - " + resultado[i].vbo_clien + "</span><span style='display:block;'>" + resultado[i].vbo_enti	+ "</span><span style='display:block;'>" + resultado[i].vbo_fpro + " " + resultado[i].vbo_tpro + "</span><span style='display:block;'>" + resultado[i].cont +"</span><span style='display:block;'>" + (resultado[i].DIR1 != "" ? resultado[i].DIR1 : "") + (resultado[i].DIR2 != "" ? resultado[i].DIR2 : "") + (resultado[i].DIR3 != "" ?  resultado[i].DIR3 : "") + "</span></label></li>");
 					//$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-previo='"+ $.trim(resultado[i].sprevio)+"' data-orden='"+ $.trim(resultado[i].vbo_orde)+"' data-al='"+ $.trim(resultado[i].al)+"' data-nexp='"+ $.trim(resultado[i].nexp)+"' data-sol='"+ $.trim(resultado[i].sol)+"' data-clie='"+ $.trim(resultado[i].cliente)+"' data-serv='"+ $.trim(resultado[i].servicio)+"'><input type='checkbox' id='check" + i + "' /><label for='check" + i + "'><span style='display:block;'>"+ $.trim(resultado[i].vbo_orde) + " | " + resultado[i].vbo_clien + " | " + resultado[i].vbo_enti	+ " | " + resultado[i].vbo_fpro + " | " + resultado[i].vbo_tpro + "</span></label></li>");
-					$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-previo='"+ $.trim(resultado[i].sprevio)+"' data-orden='"+ $.trim(resultado[i].vbo_orde)+"' data-al='"+ $.trim(resultado[i].al)+"' data-nexp='"+ $.trim(resultado[i].nexp)+"' data-sol='"+ $.trim(resultado[i].sol)+"' data-clie='"+ $.trim(resultado[i].cliente)+"' data-serv='"+ $.trim(resultado[i].servicio)+"'><input type='radio' name='orden' id='check" + i + "' /><label for='check" + i + "'><span style='display:block;'>"+ $.trim(resultado[i].PROG) + "</span></label></li>");
+					$("#listProgramacion").append("<li style='position: relative;padding: 0px;' data-orden='"+ $.trim(resultado[i].vbo_orde)+"' data-corr='"+ $.trim(resultado[i].vbo_corr)+"' data-enti='"+ $.trim(resultado[i].vbo_enti)+"' data-clie='"+ $.trim(resultado[i].vbo_clien)+"'><input type='radio' name='orden' id='check" + i + "' /><label for='check" + i + "'><span style='display:block;'>"+ $.trim(resultado[i].PROG) + "</span></label></li>");
 				
 				}
 				$("#listProgramacion").listview("refresh");
@@ -321,10 +321,10 @@ function setGuardar(){
 		}
 	}
 	
-	if ($(".DivObsNoti").css("display") == "block"){
-		if ($("#observacion2").val() == ""){
-			alerta("Ingresar motivo"); 
-			$("#observacion2").focus()
+	if ($(".DivDeposito").css("display") == "block"){
+		if ($("#deposito").val() == "0"){
+			alerta("Seleccionar depósito"); 
+			$("#deposito").focus()
 			return;
 		}
 	}
@@ -336,35 +336,20 @@ function setGuardar(){
 			var parametros = new Object();
 			parametros.usu = code_usuario;	
 			parametros.orden = $(Li).data("orden");	
-			parametros.culmi = 1;//$("#concluido").val();	
-			parametros.obs = $("#observacion").val();	
-			parametros.servicio = $(Li).data("serv");
-			parametros.cheque = $("#cheque").val();
-			parametros.nroexp = $(Li).data("nexp");
-			parametros.clien = $(Li).data("clie");
-			parametros.nrosol = $(Li).data("sol");	
-			parametros.contenedor = $(Li).find("span").eq(3).text();
-			parametros.AL = $(Li).data("al");	
-			parametros.chknotifi = $("#notificado").val();	
-			parametros.obsnota = $("#observacion2").val();
-			parametros.Sprevio = $(Li).data("previo");
-			
-			if  ( $(Li).data("serv") == "SENASA" ){				
-				var strFecha = $("#fecha").val();	
-				if (strFecha!= ""){ 
-					  parametros.fecha = strFecha;
-				}
-				else
-					parametros.fecha = "01/01/1900";				 	
-			}
-			else
-				parametros.fecha = "01/01/1900";	
-			
-			
+			parametros.correlativo = $(Li).data("corr");
+			parametros.entidad = $(Li).data("enti");
+			parametros.tipomemo = 0;//$(Li).data("serv");
+			parametros.dtdevol = $("#deposito").val();
+			parametros.fecsob = $("#fecha").val();
+			parametros.ruta =  $("#imgFoto").attr("src"); "";//$(Li).data("nexp");
+			parametros.obs = $("#observacion").val();
 			console.log(parametros);
+			
+			return;
+			
 			$.mobile.loading('show'); 
 			$.ajax({
-			url :  rutaWS + "Movil/WS_AuxDespacho.asmx/Grabar2",
+			url :  rutaWS + "Movil/WS_Aux_VB.asmx/Grabar",
 			type: "POST",
 			//crossDomain: true,
 			dataType : "json",
@@ -378,7 +363,7 @@ function setGuardar(){
 				$.mobile.loading('hide');
 				 if ( resultado.code == 1){
 					$("#observacion").val("");
-					$("#cheque").val("");
+					$("#deposito").val("0");
 					$("#fecha").val("");	
 					$(Li).remove();	
 					 
@@ -402,50 +387,7 @@ function setGuardar(){
 			$("#myPopup").popup("close");			
 		}			 
 	});
- 
-	
-	/*var parametros = new Object();
-	parametros.usu = code_usuario;	
-	parametros.orden = $("#ordenes").val();	
-	parametros.culmi = 1;//$("#concluido").val();	
-	parametros.obs = $("#observacion").val();	
-	parametros.servicio = $("#ordenes option:selected").text();
-	parametros.cheque = $("#cheque").val();
-	//console.log(parametros);
-	//return;
-	$.mobile.loading('show'); 
-	$.ajax({
-        url : "http://www.meridian.com.pe/ServiciosMovil/AntaresAduanas/Movil/WS_AuxDespacho.asmx/Grabar",
-        type: "POST",
-		//crossDomain: true,
-        dataType : "json",
-        data : JSON.stringify(parametros),
-		contentType: "application/json; charset=utf-8",
-        success : function(data, textStatus, jqXHR) {
-			//console
-			resultado = $.parseJSON(data.d);
-			$.mobile.loading('hide');
-			 if ( resultado.code == 1){
-				$("#observacion").val("")
-				$("#cheque").val("")
-				$("#concluido").val();	
-				$("#ordenes").val(0);
-				$("#ordenes").selectmenu('refresh', true);
-				$("#concluido").selectmenu('refresh', true);
-				getProgramaciones();
-			 }			  
-			 alerta(resultado.message);
-			 
-        },
-
-        error : function(jqxhr) 
-        { 
-          alerta('Error de conexi\u00f3n, contactese con sistemas!');
-        }
-
-    });	*/	
-		
-	
+ 	
 }
 
 
