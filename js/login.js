@@ -15,7 +15,7 @@ $(document).ready(function(e) {
 		
 		
 		$("#perfil").change(function(){
-			$("#usuario").html("<option value='0'>Seleccionar Usuario</option>");
+			$("#usuario").html("<option value='0'>Cargando...</option>");
 			if ( $(this).val() == "VBO" ){
 				cargarUsuariosVBO();
 			}
@@ -98,7 +98,7 @@ function alertDismissed(){
 
 function cargarUsuariosVBO(){
 		
-	$("#usuario").html("<option value='0'>Seleccionar Usuario</option>");
+	//$("#usuario").html("<option value='0'>Seleccionar Usuario</option>");
 	//$.mobile.loading('show'); 
 	$.ajax({
         url : rutaWS + "Autenticacion/Login.asmx/ListarAuxiliarVB",
@@ -109,7 +109,8 @@ function cargarUsuariosVBO(){
         data : '',//{"Empresa":"'+empresa+'", "IDEstado" : '+idestado+'}',
 		contentType: "application/json; charset=utf-8",
         success : function(data, textStatus, jqXHR) {
-			console.log(data.d);
+			//console.log(data.d);
+			$("#usuario").html("<option value='0'>Seleccionar Usuario</option>");
 			resultado = $.parseJSON(data.d);
 			$.mobile.loading('hide');			 
 			if ( resultado.length > 0 ){				
@@ -134,7 +135,7 @@ function cargarUsuariosVBO(){
 
 function cargarUsuarios(){
 		
-	$("#usuario").html("<option value='0'>Seleccionar Usuario</option>");
+	//$("#usuario").html("<option value='0'>Seleccionar Usuario</option>");
 	//$.mobile.loading('show'); 
 	$.ajax({
         url : rutaWS + "Autenticacion/Login.asmx/ListarAuxiliar",
@@ -146,6 +147,7 @@ function cargarUsuarios(){
 		contentType: "application/json; charset=utf-8",
         success : function(data, textStatus, jqXHR) {
 			//console.log(data.d);
+			$("#usuario").html("<option value='0'>Seleccionar Usuario</option>");
 			resultado = $.parseJSON(data.d);
 			$.mobile.loading('hide');			 
 			if ( resultado.length > 0 ){				

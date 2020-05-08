@@ -54,9 +54,11 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 function sendImage(src) {
     src = (src == 'library') ? Camera.PictureSourceType.PHOTOLIBRARY : Camera.PictureSourceType.CAMERA;
     navigator.camera.getPicture(CamaraSuccess, CamaraFail, { 
-        quality: 70,
+        quality: 50,
         destinationType: navigator.camera.DestinationType.DATA_URL,
-        sourceType: src,
+        sourceType: src, 
+		targetWidth: 1240,
+		targetHeight: 1754,
 		correctOrientation: true,
         encodingType: navigator.camera.EncodingType.JPEG,
         saveToPhotoAlbum: false
@@ -175,8 +177,7 @@ $(document).ready(function(e) {
 });	
 
 function cargarDeposito(){
-		
-	$("#deposito").html("<option value='0'>Seleccionar Depósito</option>");
+	$("#deposito").html("<option value='0'>Cargando...</option>");
 	//$.mobile.loading('show'); 
 	$.ajax({
         url : rutaWS + "Movil/WS_Aux_VB.asmx/CargararDepositosVB",
@@ -188,6 +189,7 @@ function cargarDeposito(){
 		contentType: "application/json; charset=utf-8",
         success : function(data, textStatus, jqXHR) {
 			//console.log(data.d);
+			$("#deposito").html("<option value='0'>Seleccionar Depósito</option>");
 			resultado = $.parseJSON(data.d);
 			$.mobile.loading('hide');			 
 			if ( resultado.length > 0 ){				
