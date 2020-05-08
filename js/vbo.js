@@ -54,11 +54,11 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 function sendImage(src) {
     src = (src == 'library') ? Camera.PictureSourceType.PHOTOLIBRARY : Camera.PictureSourceType.CAMERA;
     navigator.camera.getPicture(CamaraSuccess, CamaraFail, { 
-        quality: 50,
+        quality: 60,
         destinationType: navigator.camera.DestinationType.DATA_URL,
         sourceType: src, 
-		targetWidth: 1240,
-		targetHeight: 1754,
+		//targetWidth: 1240,
+		//targetHeight: 1754,
 		correctOrientation: true,
         encodingType: navigator.camera.EncodingType.JPEG,
         saveToPhotoAlbum: false
