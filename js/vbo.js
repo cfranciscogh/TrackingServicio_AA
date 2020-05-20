@@ -309,8 +309,6 @@ function setValidarNotificado(a){
 function setGuardar(){
 	var FlagCheck = false;
 	
-	
-	
 	$("#listProgramacion").find("input").each(function(index, element) {
 		if ( $(this).is(":checked") ){
 			FlagCheck = true;			
@@ -439,6 +437,7 @@ function setOrden(parametros){
 		 if ( resultado.code == 1){
 			$("#observacion").val("");
 			$("#deposito").val("0");
+			$("#deposito").selectmenu('refresh', true);
 			$("#fecha").val("");	
 			$(Li).remove();	
 			 

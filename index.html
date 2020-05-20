@@ -13,10 +13,12 @@
     <script src="js/login.js"></script>
     <script type="text/javascript" charset="utf-8">
 
-    //Wait for device API libraries to load
+    // Wait for device API libraries to load
+    //
     document.addEventListener("deviceready", onDeviceReady, false);
-    //device APIs are available
-    
+
+    // device APIs are available
+    //
     function onDeviceReady() {
         //navigator.splashscreen.hide();
 		var flag = window.localStorage.getItem("recordar");
@@ -55,10 +57,6 @@
             
             <form>
             
-			
-			
-			<input type="date" name="fecha" id="fecha" value=""  />
-			
 			<label for="perfil">Perfil:</label>
     		<!--<input type="text" name="usuario" id="usuario" value=""  />-->
 			<select style="font-size:10px;" name="perfil" id="perfil">
