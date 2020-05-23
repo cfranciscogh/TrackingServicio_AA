@@ -99,12 +99,12 @@ function alertDismissed(){
 function cargarUsuariosVBO(){
 		
 	//$("#usuario").html("<option value='0'>Seleccionar Usuario</option>");
-	//$.mobile.loading('show'); 
+	$.mobile.loading('show'); 
 	$.ajax({
         url : rutaWS + "Autenticacion/Login.asmx/ListarAuxiliarVB",
         type: "POST",
 		cache: false,
-		//crossDomain: true,
+		crossDomain: true,
         dataType : "json",
         data : '',//{"Empresa":"'+empresa+'", "IDEstado" : '+idestado+'}',
 		contentType: "application/json; charset=utf-8",
@@ -136,12 +136,12 @@ function cargarUsuariosVBO(){
 function cargarUsuarios(){
 		
 	//$("#usuario").html("<option value='0'>Seleccionar Usuario</option>");
-	//$.mobile.loading('show'); 
+	$.mobile.loading('show'); 
 	$.ajax({
         url : rutaWS + "Autenticacion/Login.asmx/ListarAuxiliar",
         type: "POST",
 		cache: false,
-		//crossDomain: true,
+		crossDomain: true,
         dataType : "json",
         data : '',//{"Empresa":"'+empresa+'", "IDEstado" : '+idestado+'}',
 		contentType: "application/json; charset=utf-8",
