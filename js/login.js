@@ -52,7 +52,7 @@ var loginValidar = function(){
 	$.ajax({
         url : rutaWS + "Autenticacion/Login.asmx/" + metodo,
         type: "POST",
-		crossDomain: true,
+	//crossDomain: true,
         dataType : "json",
         data : '{"usuario" : "' + $("#usuario").val() + '", "clave" : "' + $("#clave").val() + '"}',
         contentType: "application/json; charset=utf-8",
@@ -104,7 +104,7 @@ function cargarUsuariosVBO(){
         url : rutaWS + "Autenticacion/Login.asmx/ListarAuxiliarVB",
         type: "POST",
 		cache: false,
-		crossDomain: true,
+	//crossDomain: true,
         dataType : "json",
         data : '',//{"Empresa":"'+empresa+'", "IDEstado" : '+idestado+'}',
 		contentType: "application/json; charset=utf-8",
@@ -125,6 +125,7 @@ function cargarUsuariosVBO(){
 
         error : function(jqxhr) 
         {	
+	  console.log(jqxhr);
           alerta('Error de conexi\u00f3n, contactese con sistemas!');
         }
 
@@ -141,7 +142,7 @@ function cargarUsuarios(){
         url : rutaWS + "Autenticacion/Login.asmx/ListarAuxiliar",
         type: "POST",
 		cache: false,
-		crossDomain: true,
+		//crossDomain: true,
         dataType : "json",
         data : '',//{"Empresa":"'+empresa+'", "IDEstado" : '+idestado+'}',
 		contentType: "application/json; charset=utf-8",
@@ -162,6 +163,7 @@ function cargarUsuarios(){
 
         error : function(jqxhr) 
         {	
+	console.log(jqxhr);
           alerta('Error de conexi\u00f3n, contactese con sistemas!');
         }
 
