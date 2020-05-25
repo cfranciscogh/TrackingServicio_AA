@@ -1,16 +1,12 @@
 //var rutaWS = "http://www.meridian.com.pe/AntaresAduanas/Servicio/AntaresAduanas/";
 var rutaWS = "http://www.meridian.com.pe/AntaresAduanas/Servicio_TEST/AntaresAduanas/";
-
 $(document).ready(function(e) {
 		
-		 
-		
-		//cargarUsuarios();
+	//cargarUsuarios();
 	
     	$("#ingresar").click(function(e) {
             e.preventDefault();
-			
-			setTimeout(loginValidar, 100);
+	setTimeout(loginValidar, 100);
         });
 		
 		
@@ -126,7 +122,7 @@ function cargarUsuariosVBO(){
         error : function($xhr,textStatus,errorThrown) 
         {	
 	var string= $xhr.responseJSON;
-        var json_object= JSON.parse(string);
+        var json_object= $.parseJSON(string);
         alert(json_object.message);
 		
 	  console.log(jqxhr);
