@@ -102,7 +102,7 @@ function cargarUsuariosVBO(){
 		cache: false,
 	//crossDomain: true,
         dataType : "json",
-        data : '',//{"Empresa":"'+empresa+'", "IDEstado" : '+idestado+'}',
+        //data : '',//{"Empresa":"'+empresa+'", "IDEstado" : '+idestado+'}',
 		contentType: "application/json; charset=utf-8",
         success : function(data, textStatus, jqXHR) {
 			//console.log(data.d);
@@ -120,6 +120,8 @@ function cargarUsuariosVBO(){
         },
 
        error: function (jqXHR, textStatus, errorThrown) {
+	  alerta(textStatus);      
+	  alerta(errorThrown);     
 	 alerta(jqXHR.responseText);
 	  console.log(jqXHR);
           alerta('Error de conexi\u00f3n, contactese con sistemas!');
