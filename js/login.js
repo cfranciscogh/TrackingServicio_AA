@@ -123,8 +123,12 @@ function cargarUsuariosVBO(){
 			}
         },
 
-        error : function(jqxhr) 
+        error : function($xhr,textStatus,errorThrown) 
         {	
+	var string= $xhr.responseJSON;
+        var json_object= JSON.parse(string);
+        alert(json_object.message);
+		
 	  console.log(jqxhr);
           alerta('Error de conexi\u00f3n, contactese con sistemas!');
         }
