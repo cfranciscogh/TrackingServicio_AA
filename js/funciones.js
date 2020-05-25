@@ -1,5 +1,4 @@
 // JavaScript Document
-
 (function($) {
 	$.ajaxSetup({ cache: false });
     $.QueryString = (function(a) {
@@ -17,12 +16,13 @@
 
  function exitFromApp()
         {
+		alert(0);
             navigator.app.exitApp();
         }
 		
 
  function sesionFromApp()
         {
-			window.localStorage.clear();
+	    window.localStorage.clear();
             location.href = "index.html";
         }
